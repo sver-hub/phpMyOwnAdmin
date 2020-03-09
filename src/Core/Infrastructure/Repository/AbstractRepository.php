@@ -1,10 +1,10 @@
 <?php
 
 
-class Repository
+abstract class AbstractRepository
 {
 
-    public function create()
+    public function save()
     {
 
     }
