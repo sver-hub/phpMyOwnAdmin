@@ -3,26 +3,29 @@
 
 class Record implements EntityInterface
 {
+    private $tableName;
     private $attributes;
 
     public function getTableName(): string
     {
-        // TODO: Implement getTableName() method.
-        return false;
+        return $this->tableName;
     }
 
     public function __construct($tableName, $attributes)
     {
-
+        $this->tableName = $tableName;
+        foreach ($attributes as $name => $value) {
+            $this->attributes[$name] = $value;
+        }
     }
 
     public function __get($name)
     {
-        // TODO: Implement __get() method.
+        return $this->attributes[$name];
     }
 
     public function __set($name, $value)
     {
-        // TODO: Implement __set() method.
+        $this->attributes[$name] = $value;
     }
 }
