@@ -1,5 +1,8 @@
 <?php
 
+namespace src\Core\Infrastructure\Repository;
+use src\Core\Domain\Entity\EntityInterface;
+use Yii;
 
 abstract class AbstractRepository
 {

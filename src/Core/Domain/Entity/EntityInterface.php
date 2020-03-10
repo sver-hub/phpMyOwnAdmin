@@ -1,5 +1,6 @@
 <?php
 
+namespace src\Core\Domain\Entity;
 
 interface EntityInterface
 {

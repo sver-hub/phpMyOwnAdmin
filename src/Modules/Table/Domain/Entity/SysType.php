@@ -1,5 +1,8 @@
 <?php
 
+namespace src\Modules\Table\Domain\Entity;
+
+use src\Core\Domain\Entity\EntityInterface;
 
 class SysType implements EntityInterface
 {

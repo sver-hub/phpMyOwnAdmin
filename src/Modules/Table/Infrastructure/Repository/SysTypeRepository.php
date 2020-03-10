@@ -1,6 +1,10 @@
 <?php
 
-
+namespace src\Modules\Table\Infrastructure\Repository;
+use src\Core\Domain\Mapper\Mapper;
+use src\Core\Infrastructure\Repository\AbstractRepository;
+use src\Modules\Table\Domain\Repository\SysTypeRepositoryInterface;
+use src\Modules\Table\Domain\Entity\SysType;
 use yii\db\Query;
 
 class SysTypeRepository extends AbstractRepository implements SysTypeRepositoryInterface

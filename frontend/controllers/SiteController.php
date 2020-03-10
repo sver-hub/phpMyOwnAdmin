@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
+use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -20,6 +21,15 @@ use frontend\models\ContactForm;
  */
 class SiteController extends Controller
 {
+    private $sysTableRepository;
+
+    public function __construct($id, $module, $config = [], SysTableRepositoryInterface $sysTableRepository)
+    {
+        $this->sysTableRepository = $sysTableRepository;
+        parent::__construct($id, $module, $config);
+
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -256,5 +266,10 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionTest()
+    {
+        $first = $this->sysTableRepository->findOneById(1);
     }
 }

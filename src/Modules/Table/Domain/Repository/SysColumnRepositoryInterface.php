@@ -1,5 +1,8 @@
 <?php
 
+namespace src\Modules\Table\Domain\Repository;
+
+use src\Modules\Table\Domain\Entity\SysColumn;
 
 interface SysColumnRepositoryInterface
 {

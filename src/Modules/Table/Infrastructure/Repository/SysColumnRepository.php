@@ -1,6 +1,10 @@
 <?php
 
-
+namespace src\Modules\Table\Infrastructure\Repository;
+use src\Core\Domain\Mapper\Mapper;
+use src\Core\Infrastructure\Repository\AbstractRepository;
+use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
+use src\Modules\Table\Domain\Entity\SysColumn;
 use yii\db\Query;
 
 class SysColumnRepository extends AbstractRepository implements SysColumnRepositoryInterface
