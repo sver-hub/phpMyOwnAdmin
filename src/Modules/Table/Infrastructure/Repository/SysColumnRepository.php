@@ -1,6 +1,7 @@
 <?php
 
 namespace src\Modules\Table\Infrastructure\Repository;
+use src\Core\Domain\Entity\EntityInterface;
 use src\Core\Domain\Mapper\Mapper;
 use src\Core\Infrastructure\Repository\AbstractRepository;
 use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
@@ -23,7 +24,7 @@ class SysColumnRepository extends AbstractRepository implements SysColumnReposit
             ->where(['id' => $id])
             ->one();
         if ($query) {
-            return $this->mapper->map('SysColumn', $query);
+            return $this->mapper->map(new SysColumn(), $query);
         } else {
             return null;
         }
@@ -36,7 +37,7 @@ class SysColumnRepository extends AbstractRepository implements SysColumnReposit
             ->all();
 
         if ($query) {
-            return $this->mapper->mapItems('SysColumn', $query);
+            return $this->mapper->mapItems(new SysColumn(), $query);
         } else {
             return null;
         }

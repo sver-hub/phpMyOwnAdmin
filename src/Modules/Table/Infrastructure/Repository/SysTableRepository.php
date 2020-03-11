@@ -2,6 +2,7 @@
 
 namespace src\Modules\Table\Infrastructure\Repository;
 
+use src\Core\Domain\Entity\EntityInterface;
 use src\Core\Domain\Mapper\Mapper;
 use src\Core\Infrastructure\Repository\AbstractRepository;
 use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
@@ -24,7 +25,7 @@ class SysTableRepository extends AbstractRepository implements SysTableRepositor
             ->where(['id' => $id])
             ->one();
         if ($query) {
-            return $this->mapper->map('SysTable', $query);
+            return $this->mapper->map(new SysTable(), $query);
         } else {
             return null;
         }
@@ -37,7 +38,7 @@ class SysTableRepository extends AbstractRepository implements SysTableRepositor
             ->all();
 
         if ($query) {
-            return $this->mapper->mapItems('SysTable', $query);
+            return $this->mapper->mapItems(new SysTable(), $query);
         } else {
             return null;
         }

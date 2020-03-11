@@ -6,8 +6,8 @@ use src\Core\Domain\Entity\EntityInterface;
 
 class SysType implements EntityInterface
 {
-    private $id;
-    private $type;
+    public $id;
+    public $type;
 
     public function getTableName(): string
     {

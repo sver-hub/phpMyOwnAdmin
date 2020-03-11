@@ -1,6 +1,7 @@
 <?php
 
 namespace src\Modules\Table\Infrastructure\Repository;
+use src\Core\Domain\Entity\EntityInterface;
 use src\Core\Domain\Mapper\Mapper;
 use src\Core\Infrastructure\Repository\AbstractRepository;
 use src\Modules\Table\Domain\Repository\SysTypeRepositoryInterface;
@@ -23,7 +24,7 @@ class SysTypeRepository extends AbstractRepository implements SysTypeRepositoryI
             ->where(['id' => $id])
             ->one();
         if ($query) {
-            return $this->mapper->map('SysType', $query);
+            return $this->mapper->map(new SysType(), $query);
         } else {
             return null;
         }
@@ -36,7 +37,7 @@ class SysTypeRepository extends AbstractRepository implements SysTypeRepositoryI
             ->all();
 
         if ($query) {
-            return $this->mapper->mapItems('SysType', $query);
+            return $this->mapper->mapItems(new SysType(), $query);
         } else {
             return null;
         }

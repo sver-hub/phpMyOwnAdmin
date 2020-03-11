@@ -2,11 +2,15 @@
 
 namespace src\Core\Domain\Mapper;
 
+use src\Modules\Table\Domain\Entity\SysTable;
+
+
 class Mapper
 {
-    public function map($className, $data)
+    public function map(object $object, $data)
     {
-        $entity = new $className();
+        $class = get_class($object);
+        $entity = new $class;
         foreach ($data as $key => $value) {
             $entity->$key = $value;
         }
@@ -14,12 +18,13 @@ class Mapper
         return $entity;
     }
 
-    public function mapItems($className, $items)
+    public function mapItems(object $object, $items)
     {
         $entities = [];
 
         foreach ($items as $data) {
-            $entity = new $className;
+            $class = get_class($object);
+            $entity = new $class;
             foreach ($data as $key => $value) {
                 $entity->$key = $value;
             }

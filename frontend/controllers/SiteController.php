@@ -3,7 +3,12 @@ namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
+use src\Modules\Table\Domain\Entity\SysColumn;
+use src\Modules\Table\Domain\Entity\SysTable;
+use src\Modules\Table\Domain\Entity\SysType;
+use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
 use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
+use src\Modules\Table\Domain\Repository\SysTypeRepositoryInterface;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -22,10 +27,19 @@ use frontend\models\ContactForm;
 class SiteController extends Controller
 {
     private $sysTableRepository;
+    private $sysColumnRepository;
+    private $sysTypeRepository;
 
-    public function __construct($id, $module, $config = [], SysTableRepositoryInterface $sysTableRepository)
+    public function __construct($id,
+                                $module,
+                                SysTableRepositoryInterface $sysTableRepository,
+                                SysColumnRepositoryInterface $sysColumnRepository,
+                                SysTypeRepositoryInterface $sysTypeRepository,
+                                $config = [])
     {
         $this->sysTableRepository = $sysTableRepository;
+        $this->sysColumnRepository = $sysColumnRepository;
+        $this->sysTypeRepository = $sysTypeRepository;
         parent::__construct($id, $module, $config);
 
     }
@@ -270,6 +284,22 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        $first = $this->sysTableRepository->findOneById(1);
+        $tables = $this->sysTableRepository->findAll();
+        $columns = $this->sysColumnRepository->findAll();
+        $types = $this->sysTypeRepository->findAll();
+        $table = new SysTable();
+        $table->table_name = 'test';
+        $table->title = 'Test';
+        $this->sysTableRepository->save($table);
+    }
+
+    public function actionSqlform()
+    {
+        return $this->render('sqlform');
+    }
+
+    public function actionRunsql()
+    {
+
     }
 }

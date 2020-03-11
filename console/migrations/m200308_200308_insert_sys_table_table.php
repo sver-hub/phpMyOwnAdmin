@@ -13,19 +13,16 @@ class m200308_200308_insert_sys_table_table extends Migration
     public function safeUp()
     {
         $this->insert('sys_table', [
-            'id' => 1,
             'table_name' => 'sys_table',
             'title' => 'System Table'
         ]);
 
         $this->insert('sys_table', [
-            'id' => 2,
             'table_name' => 'sys_column',
             'title' => 'System Column'
         ]);
 
         $this->insert('sys_table', [
-            'id' => 3,
             'table_name' => 'sys_type',
             'title' => 'System Type'
         ]);

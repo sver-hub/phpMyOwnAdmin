@@ -2,6 +2,7 @@
 
 namespace src\Modules\Table\Domain\Repository;
 
+use src\Core\Domain\Entity\EntityInterface;
 use src\Modules\Table\Domain\Entity\SysTable;
 
 interface SysTableRepositoryInterface
@@ -10,4 +11,5 @@ interface SysTableRepositoryInterface
 
     public function findAll() : ?array;
 
+    public function save(EntityInterface $entity) : bool;
 }
