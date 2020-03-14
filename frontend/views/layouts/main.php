@@ -39,7 +39,7 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
-        ['label' => 'SQL Form', 'url' => ['/site/sqlform']],
+        ['label' => 'SQL Form', 'url' => ['/sql/sqlform']],
         ['label' => 'test', 'url' => ['/site/test']],
     ];
     if (Yii::$app->user->isGuest) {

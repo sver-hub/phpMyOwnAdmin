@@ -291,8 +291,4 @@ class SiteController extends Controller
         $this->sysTableRepository->save($table);
     }
 
-    public function actionSqlform()
-    {
-        return $this->render('sqlform');
-    }
 }

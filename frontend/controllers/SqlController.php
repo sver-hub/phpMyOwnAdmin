@@ -18,16 +18,24 @@ class SqlController extends Controller
         parent::__construct($id, $module, $config);
     }
 
+    public function actionSqlform($queries = null)
+    {
+        return $this->render('sqlform', ['queries' => $queries]);
+    }
+
     public function actionSubmit()
     {
         $data = Yii::$app->request->post();
         $sql = $data['input_sql'];
         if (isset($data['run'])) {
-            $this->sqlService->run($sql);
+            $result = $this->sqlService->run($sql);
+            if (is_array($result)) {
+                return $this->actionSqlform($result);
+            }
         } else if (isset($data['save'])) {
             $this->sqlService->save($sql);
         }
-        return $this->redirect('/site/sqlform');
+        return $this->actionSqlform();
 
     }
 }

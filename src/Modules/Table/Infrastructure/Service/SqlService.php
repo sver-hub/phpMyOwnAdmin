@@ -2,44 +2,110 @@
 
 namespace src\Modules\Table\Infrastructure\Service;
 
+use src\Modules\Table\Domain\Entity\SysSqlCommand;
+use src\Modules\Table\Domain\Entity\SysTable;
+use src\Modules\Table\Infrastructure\Repository\SysSqlCommandRepository;
+use src\Modules\Table\Infrastructure\Repository\SysTableRepository;
 use Yii;
 use yii\db\Exception;
 
 class SqlService
 {
+    private $sysSqlCommandRepository;
+    private $sysTableRepository;
 
-    public function run($sql) : bool
+    public function __construct(SysSqlCommandRepository $sysSqlCommandRepository, SysTableRepository $sysTableRepository)
     {
-        //$this->processSql($sql);
+        $this->sysSqlCommandRepository = $sysSqlCommandRepository;
+        $this->sysTableRepository = $sysTableRepository;
+    }
+
+    public function run($sql)
+    {
+        $commands = $this->processSql($sql);
+        $queries = [];
+        $transaction = Yii::$app->db->beginTransaction();
         try {
-            print Yii::$app->db->createCommand($sql)->execute();
+            foreach ($commands as $command) {
+                if ($command['type'] == 'create') {
+                    $sysTable = new SysTable();
+                    $sysTable->table_name = $command['table_name'];
+                    $this->sysTableRepository->save($sysTable);
+
+                    Yii::$app->db->createCommand($command['command'])->execute();
+                } else if ($command['type'] == 'select') {
+                    $queries[] = Yii::$app->db->createCommand($command['command'])->queryAll();
+                } else if ($command['type'] == 'other') {
+                    Yii::$app->db->createCommand($command['command'])->execute();
+                }
+            }
+            $transaction->commit();
             Yii::$app->session->setFlash('success', 'Success!');
+
+            if (!empty($queries)) {
+                return $queries;
+            } else {
+                return true;
+            }
+
+        } catch (Exception $e) {
+            $transaction->rollBack();
+            Yii::$app->session->setFlash('error', 'Failure!  ' . $e->getMessage());
+
+            return false;
+        }
+        /*try {
+            Yii::$app->db->createCommand($sql)->execute();
+            Yii::$app->session->setFlash('success', 'Success!');
+
             return true;
         } catch (Exception $e) {
             Yii::$app->session->setFlash('error', 'Failure!  ' . $e->getMessage());
+
             return false;
         }
+        */
     }
 
-    public function save($sql)
+    public function save($sql) : bool
     {
+        $sqlCommand = new SysSqlCommand();
+        $sqlCommand->command = $sql;
 
+        try {
+            $this->sysSqlCommandRepository->save($sqlCommand);
+            Yii::$app->session->setFlash('success', 'Command successfully saved!');
+
+            return true;
+        } catch (Exception $exception) {
+            Yii::$app->session->setFlash('error', 'Error occurred during saving...');
+
+            return false;
+        }
     }
 
     private function processSql($sql)
     {
         $create_pattern = '/^CREATE TABLE/';
         $select_pattern = '/^SELECT/';
-        $commands = explode(';', $sql);
-        foreach ($commands as $command) {
-            $command = trim($command);
-            if (preg_match($create_pattern, $command)) {
-                $table_name = preg_split('/( )+/', $command)[2];
-            } else if (preg_match($select_pattern, $command)) {
 
+        $commands = [];
+        $lines = explode(';', $sql);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (preg_match($create_pattern, $line)) {
+                $table_name = preg_split('/( )+/', $line)[2];
+                $commands[] = ['command' => $line, 'table_name' => $table_name, 'type' => 'create'];
+            } else if (preg_match($select_pattern, $line)) {
+                $commands[] = ['command' => $line, 'type' => 'select'];
+            } else if (preg_match('/( )*/', $line)) {
+                continue;
+            } else {
+                $commands[] = ['command' => $line, 'type' => 'other'];
             }
         }
 
+        return $commands;
     }
 
 }

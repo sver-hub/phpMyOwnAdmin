@@ -17,6 +17,7 @@ abstract class AbstractRepository
         }
     }
 
+
     public function insert(EntityInterface $entity) : bool
     {
         $values = (array) $entity;
@@ -27,11 +28,14 @@ abstract class AbstractRepository
         }
         return (bool)Yii::$app->db->createCommand()->insert($entity->getTableName(), $values)->execute();
     }
+
+
     public function update(EntityInterface $entity) : bool
     {
         $values = (array) $entity;
         return (bool)Yii::$app->db->createCommand()->update($entity->getTableName(), $values)->execute();
     }
+
 
     public function delete(EntityInterface $entity) : bool
     {
