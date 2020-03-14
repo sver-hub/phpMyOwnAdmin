@@ -3,9 +3,7 @@ namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
-use src\Modules\Table\Domain\Entity\SysColumn;
 use src\Modules\Table\Domain\Entity\SysTable;
-use src\Modules\Table\Domain\Entity\SysType;
 use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
 use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
 use src\Modules\Table\Domain\Repository\SysTypeRepositoryInterface;
@@ -296,10 +294,5 @@ class SiteController extends Controller
     public function actionSqlform()
     {
         return $this->render('sqlform');
-    }
-
-    public function actionRunsql()
-    {
-
     }
 }
