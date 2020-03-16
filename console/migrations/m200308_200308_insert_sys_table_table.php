@@ -26,6 +26,17 @@ class m200308_200308_insert_sys_table_table extends Migration
             'table_name' => 'sys_type',
             'title' => 'System Type'
         ]);
+
+        $this->insert('sys_table', [
+            'table_name' => 'sys_category',
+            'title' => 'System Category'
+        ]);
+
+        $this->insert('sys_table', [
+            'table_name' => 'sys_sql_command',
+            'title' => 'System Sql Command'
+        ]);
+
     }
 
     /**

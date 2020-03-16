@@ -7,7 +7,7 @@ use src\Core\Domain\Entity\EntityInterface;
 class Record implements EntityInterface
 {
     public $tableName;
-    public $attributes;
+    private $attributes;
 
     public function getTableName(): string
     {
@@ -30,5 +30,15 @@ class Record implements EntityInterface
     public function __set($name, $value)
     {
         $this->attributes[$name] = $value;
+    }
+
+    public function getKeys()
+    {
+        $keys = [];
+        foreach ($this->attributes as $key => $value) {
+            $keys[] = $key;
+        }
+
+        return $keys;
     }
 }

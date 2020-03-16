@@ -5,7 +5,7 @@
  */
 
 
-use common\widgets\Table;
+use common\widgets\SQLTable;
 use yii\helpers\Html;
 
 $this->title = 'SQL Form';
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <br>
     <?php if (!is_null($queries)) {
         foreach ($queries as $query) {
-            echo Table::widget(['table' => $query]);
+            echo SQLTable::widget(['table' => $query]);
         }
     } ?>
 

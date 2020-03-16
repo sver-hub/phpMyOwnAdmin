@@ -6,22 +6,21 @@ namespace common\widgets;
 
 use yii\bootstrap\Widget;
 
-
-class Table extends Widget
+class SQLTable extends Widget
 {
-    public $table; // array<Record>
+    public $table;
 
     public function run()
     {
         $result = '<table><tr>';
-        foreach ($this->table[0]->getKeys() as $key) {
+        foreach ($this->table[0] as $key => $value) {
             $result .= "<th scope=\"col\">$key</th>";
         }
         $result .= '</tr>';
-        foreach ($this->table as $record) {
+        foreach ($this->table as $entry) {
             $result .= '<tr>';
-            foreach ($record->getKeys() as $key) {
-                $result .= ('<td>' . ($record->$key ?? 'null') . '</td>');
+            foreach ($entry as $key => $value) {
+                $result .= '<td>' . ($value ?? 'null') . '</td>';
             }
             $result .= '</tr>';
         }
