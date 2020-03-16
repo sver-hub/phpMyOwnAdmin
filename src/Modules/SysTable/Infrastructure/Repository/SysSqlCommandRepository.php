@@ -1,13 +1,13 @@
 <?php
 
 
-namespace src\Modules\Table\Infrastructure\Repository;
+namespace src\Modules\SysTable\Infrastructure\Repository;
 
 
 use src\Core\Domain\Mapper\Mapper;
 use src\Core\Infrastructure\Repository\AbstractRepository;
-use src\Modules\Table\Domain\Entity\SysSqlCommand;
-use src\Modules\Table\Domain\Repository\SysSqlCommandRepositoryInterface;
+use src\Modules\SysTable\Domain\Entity\SysSqlCommand;
+use src\Modules\SysTable\Domain\Repository\SysSqlCommandRepositoryInterface;
 use yii\db\Query;
 
 class SysSqlCommandRepository extends AbstractRepository implements SysSqlCommandRepositoryInterface

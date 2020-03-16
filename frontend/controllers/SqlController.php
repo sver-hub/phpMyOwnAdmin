@@ -4,7 +4,7 @@
 namespace frontend\controllers;
 
 
-use src\Modules\Table\Infrastructure\Service\SqlService;
+use src\Modules\SysTable\Infrastructure\Service\SqlService;
 use Yii;
 use yii\web\Controller;
 

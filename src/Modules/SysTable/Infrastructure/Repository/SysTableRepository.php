@@ -1,11 +1,11 @@
 <?php
 
-namespace src\Modules\Table\Infrastructure\Repository;
+namespace src\Modules\SysTable\Infrastructure\Repository;
 
 use src\Core\Domain\Mapper\Mapper;
 use src\Core\Infrastructure\Repository\AbstractRepository;
-use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
-use src\Modules\Table\Domain\Entity\SysTable;
+use src\Modules\SysTable\Domain\Repository\SysTableRepositoryInterface;
+use src\Modules\SysTable\Domain\Entity\SysTable;
 use yii\db\Query;
 
 class SysTableRepository extends AbstractRepository implements SysTableRepositoryInterface
@@ -38,6 +38,35 @@ class SysTableRepository extends AbstractRepository implements SysTableRepositor
 
         if ($query) {
             return $this->mapper->mapItems(new SysTable(), $query);
+        } else {
+            return null;
+        }
+    }
+
+    public function findAllByCategoryId($id): ?array
+    {
+        $junction = (new Query())
+            ->select('sys_table_id')
+            ->from('sys_table_sys_category')
+            ->where(['sys_category_id' => $id])
+            ->all();
+
+        $ids = [];
+        foreach ($junction as $item) {
+            $ids[] = $item['sys_table_id'];
+        }
+
+        if ($junction) {
+            $query = (new Query())
+                ->from('sys_table')
+                ->where(['id' => $ids])
+                ->all();
+
+            if ($query) {
+                return $this->mapper->mapItems(new SysTable(), $query);
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

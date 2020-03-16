@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\Modules\Table\Domain\Entity;
+namespace src\Modules\SysTable\Domain\Entity;
 
 
 use src\Core\Domain\Entity\EntityInterface;

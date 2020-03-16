@@ -1,11 +1,11 @@
 <?php
 
 
-namespace src\Modules\Table\Domain\Repository;
+namespace src\Modules\SysTable\Domain\Repository;
 
 
 use src\Core\Domain\Entity\EntityInterface;
-use src\Modules\Table\Domain\Entity\SysSqlCommand;
+use src\Modules\SysTable\Domain\Entity\SysSqlCommand;
 
 interface SysSqlCommandRepositoryInterface
 {

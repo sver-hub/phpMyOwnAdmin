@@ -1,12 +1,14 @@
 <?php
 
 use src\Core\Domain\Mapper\Mapper;
-use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
-use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
-use src\Modules\Table\Domain\Repository\SysTypeRepositoryInterface;
-use src\Modules\Table\Infrastructure\Repository\SysColumnRepository;
-use src\Modules\Table\Infrastructure\Repository\SysTableRepository;
-use src\Modules\Table\Infrastructure\Repository\SysTypeRepository;
+use src\Modules\Record\Domain\Repository\RecordRepositoryInterface;
+use src\Modules\Record\Infrastructure\Repository\RecordRepository;
+use src\Modules\SysTable\Domain\Repository\SysColumnRepositoryInterface;
+use src\Modules\SysTable\Domain\Repository\SysTableRepositoryInterface;
+use src\Modules\SysTable\Domain\Repository\SysTypeRepositoryInterface;
+use src\Modules\SysTable\Infrastructure\Repository\SysColumnRepository;
+use src\Modules\SysTable\Infrastructure\Repository\SysTableRepository;
+use src\Modules\SysTable\Infrastructure\Repository\SysTypeRepository;
 
 return [
     'aliases' => [
@@ -25,6 +27,7 @@ return [
             SysColumnRepositoryInterface::class => ['class' => SysColumnRepository::class],
             SysTypeRepositoryInterface::class => ['class' => SysTypeRepository::class],
             Mapper::class => ['class' => Mapper::class],
+            RecordRepositoryInterface::class => ['class' => RecordRepository::class]
         ]
     ]
 ];

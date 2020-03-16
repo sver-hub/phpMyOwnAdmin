@@ -2,7 +2,6 @@
 
 namespace src\Core\Domain\Mapper;
 
-use src\Modules\Table\Domain\Entity\SysTable;
 
 
 class Mapper

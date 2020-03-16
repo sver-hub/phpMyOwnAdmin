@@ -1,11 +1,11 @@
 <?php
 
-namespace src\Modules\Table\Infrastructure\Repository;
-use src\Core\Domain\Entity\EntityInterface;
+namespace src\Modules\SysTable\Infrastructure\Repository;
+
 use src\Core\Domain\Mapper\Mapper;
 use src\Core\Infrastructure\Repository\AbstractRepository;
-use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
-use src\Modules\Table\Domain\Entity\SysColumn;
+use src\Modules\SysTable\Domain\Repository\SysColumnRepositoryInterface;
+use src\Modules\SysTable\Domain\Entity\SysColumn;
 use yii\db\Query;
 
 class SysColumnRepository extends AbstractRepository implements SysColumnRepositoryInterface
@@ -38,6 +38,21 @@ class SysColumnRepository extends AbstractRepository implements SysColumnReposit
 
         if ($query) {
             return $this->mapper->mapItems(new SysColumn(), $query);
+        } else {
+            return null;
+        }
+    }
+
+    public function getColumnsByTableId($id) :?array
+    {
+        $query = (new Query())
+            ->select("column_name, column_type_id, reference_id")
+            ->from('sys_column')
+            ->where(['table_id' => $id])
+            ->all();
+
+        if ($query) {
+            return $query;
         } else {
             return null;
         }

@@ -3,10 +3,9 @@ namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
-use src\Modules\Table\Domain\Entity\SysTable;
-use src\Modules\Table\Domain\Repository\SysColumnRepositoryInterface;
-use src\Modules\Table\Domain\Repository\SysTableRepositoryInterface;
-use src\Modules\Table\Domain\Repository\SysTypeRepositoryInterface;
+use src\Modules\SysTable\Domain\Repository\SysColumnRepositoryInterface;
+use src\Modules\SysTable\Domain\Repository\SysTableRepositoryInterface;
+use src\Modules\SysTable\Domain\Repository\SysTypeRepositoryInterface;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -279,16 +278,4 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
-
-    public function actionTest()
-    {
-        $tables = $this->sysTableRepository->findAll();
-        $columns = $this->sysColumnRepository->findAll();
-        $types = $this->sysTypeRepository->findAll();
-        $table = new SysTable();
-        $table->table_name = 'test';
-        $table->title = 'Test';
-        $this->sysTableRepository->save($table);
-    }
-
 }

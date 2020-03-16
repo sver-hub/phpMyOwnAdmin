@@ -1,11 +1,11 @@
 <?php
 
-namespace src\Modules\Table\Infrastructure\Service;
+namespace src\Modules\SysTable\Infrastructure\Service;
 
-use src\Modules\Table\Domain\Entity\SysSqlCommand;
-use src\Modules\Table\Domain\Entity\SysTable;
-use src\Modules\Table\Infrastructure\Repository\SysSqlCommandRepository;
-use src\Modules\Table\Infrastructure\Repository\SysTableRepository;
+use src\Modules\SysTable\Domain\Entity\SysSqlCommand;
+use src\Modules\SysTable\Domain\Entity\SysTable;
+use src\Modules\SysTable\Infrastructure\Repository\SysSqlCommandRepository;
+use src\Modules\SysTable\Infrastructure\Repository\SysTableRepository;
 use Yii;
 use yii\db\Exception;
 
@@ -54,17 +54,6 @@ class SqlService
 
             return false;
         }
-        /*try {
-            Yii::$app->db->createCommand($sql)->execute();
-            Yii::$app->session->setFlash('success', 'Success!');
-
-            return true;
-        } catch (Exception $e) {
-            Yii::$app->session->setFlash('error', 'Failure!  ' . $e->getMessage());
-
-            return false;
-        }
-        */
     }
 
     public function save($sql) : bool

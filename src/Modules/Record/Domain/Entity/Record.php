@@ -1,11 +1,13 @@
 <?php
 
-namespace src\Core\Domain\Entity;
+namespace src\Modules\Record\Domain\Entity;
+
+use src\Core\Domain\Entity\EntityInterface;
 
 class Record implements EntityInterface
 {
-    private $tableName;
-    private $attributes;
+    public $tableName;
+    public $attributes;
 
     public function getTableName(): string
     {
