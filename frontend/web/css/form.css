@@ -1,0 +1,23 @@
+.form-row {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    border-bottom: 1px #eee solid;
+    padding-bottom: 10px;
+}
+
+.form-input-wrapper {
+    display: inline-block;
+    margin-right: 30px;
+    width: 100%;
+}
+
+.form-label {
+    display: block;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.form-input {
+    width: 100%;
+}

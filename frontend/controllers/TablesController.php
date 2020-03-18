@@ -32,13 +32,13 @@ class TablesController extends Controller
     {
         $content = $this->categoryService->getAllCategoriesWithContent();
         if ($id == 0) {
-            $tables = null;
+            $table = null;
         } else {
             $tableName = ($this->sysTableRepository->findOneById($id))->table_name;
-            $tables[] = $this->recordRepository->findAllByTableName($tableName);
+            $table = $this->recordRepository->findAllByTableName($tableName);
         }
         return $this->render('index', [
-            'tables' => $tables,
+            'table' => $table,
             'content' => $content]);
     }
 

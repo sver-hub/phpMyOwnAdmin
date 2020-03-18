@@ -19,7 +19,9 @@ class Categories extends Widget
             if (empty($children)) {
                 $result .= "<span>$category_name</span>";
             } else {
-                $result .= "<button class=\"dropdown-btn\">$category_name<i class=\"fa fa-caret-down\"></i></button><div class=\"dropdown-container\">";
+                $result .= "<button data-target='#$category_name-dropdown' data-toggle='hidden' class='dropdown-btn'
+                            onclick='$(this.dataset.target).toggleClass(this.dataset.toggle)'>$category_name
+                            </button><div class='dropdown-container hidden' id='$category_name-dropdown'>";
                 foreach ($children as $child) {
                     $result .= Html::a($child['title'], '/tables/index/?id=' . $child['id']);
                 }

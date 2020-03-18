@@ -71,4 +71,18 @@ class SysTableRepository extends AbstractRepository implements SysTableRepositor
             return null;
         }
     }
+
+    public function findOneByName($tableName): ?SysTable
+    {
+        $query = (new Query())
+            ->from('sys_table')
+            ->where(['table_name' => $tableName])
+            ->one();
+
+        if ($query) {
+            return $this->mapper->map(new SysTable(), $query);
+        } else {
+            return null;
+        }
+    }
 }

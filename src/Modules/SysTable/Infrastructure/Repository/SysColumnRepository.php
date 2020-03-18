@@ -46,13 +46,12 @@ class SysColumnRepository extends AbstractRepository implements SysColumnReposit
     public function getColumnsByTableId($id) :?array
     {
         $query = (new Query())
-            ->select("column_name, column_type_id, reference_id")
             ->from('sys_column')
             ->where(['table_id' => $id])
             ->all();
 
         if ($query) {
-            return $query;
+            return $this->mapper->mapItems(new SysColumn(), $query);
         } else {
             return null;
         }

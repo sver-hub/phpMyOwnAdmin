@@ -2,6 +2,7 @@
 
 namespace src\Modules\SysTable\Domain\Repository;
 
+use src\Core\Domain\Entity\EntityInterface;
 use src\Modules\SysTable\Domain\Entity\SysColumn;
 
 interface SysColumnRepositoryInterface
@@ -11,5 +12,7 @@ interface SysColumnRepositoryInterface
     public function findAll() : ?array;
 
     public function getColumnsByTableId($id) : ?array;
+
+    public function save(EntityInterface $entity) : bool;
 
 }

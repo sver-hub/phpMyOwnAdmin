@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/dbstyle.css',
         'css/sidebar.css',
+        'css/form.css'
     ];
     public $js = [
     ];

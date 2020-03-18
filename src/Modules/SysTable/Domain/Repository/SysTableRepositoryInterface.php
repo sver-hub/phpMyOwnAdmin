@@ -13,5 +13,7 @@ interface SysTableRepositoryInterface
 
     public function findAllByCategoryId($id) : ?array;
 
+    public function findOneByName($tableName) : ?SysTable;
+
     public function save(EntityInterface $entity) : bool;
 }
