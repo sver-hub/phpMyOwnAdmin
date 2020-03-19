@@ -14,7 +14,7 @@ class Record implements EntityInterface
         return $this->tableName;
     }
 
-    public function __construct($tableName, $attributes)
+    public function __construct($tableName, $attributes = [])
     {
         $this->tableName = $tableName;
         foreach ($attributes as $name => $value) {
@@ -40,5 +40,10 @@ class Record implements EntityInterface
         }
 
         return $keys;
+    }
+
+    public function getAttributes() :array
+    {
+        return $this->attributes;
     }
 }

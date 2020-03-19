@@ -5,45 +5,44 @@ namespace frontend\controllers;
 
 
 use src\Modules\Record\Domain\Repository\RecordRepositoryInterface;
-use src\Modules\SysTable\Domain\Repository\SysTableRepositoryInterface;
 use src\Modules\SysTable\Infrastructure\Service\CategoryService;
-use yii\db\Query;
+use src\Modules\SysTable\Infrastructure\Service\DropTableService;
 use yii\web\Controller;
 
 class TablesController extends Controller
 {
     private $recordRepository;
-    private $sysTableRepository;
     private $categoryService;
+    private $dropTableService;
 
     public function __construct($id, $module,
                                 RecordRepositoryInterface $recordRepository,
-                                SysTableRepositoryInterface $sysTableRepository,
                                 CategoryService $categoryService,
+                                DropTableService $dropTableService,
                                 $config = [])
     {
-        $this->sysTableRepository = $sysTableRepository;
         $this->recordRepository = $recordRepository;
         $this->categoryService = $categoryService;
+        $this->dropTableService = $dropTableService;
         parent::__construct($id, $module, $config);
     }
 
-    public function actionIndex($id = 0)
+    public function actionIndex($id = null)
     {
         $content = $this->categoryService->getAllCategoriesWithContent();
-        if ($id == 0) {
-            $table = null;
-        } else {
-            $tableName = ($this->sysTableRepository->findOneById($id))->table_name;
-            $table = $this->recordRepository->findAllByTableName($tableName);
-        }
+
+        $records = $id == null ? null : $this->recordRepository->findAllByTableId($id);
+
         return $this->render('index', [
-            'table' => $table,
+            'records' => $records,
+            'tableId' => $id,
             'content' => $content]);
     }
 
-    public function actionShow($id)
+    public function actionDrop($id)
     {
+        $this->dropTableService->dropTableById($id);
 
+        return $this->redirect('/tables/index');
     }
 }

@@ -15,4 +15,9 @@ class SysTable implements EntityInterface
     {
         return 'sys_table';
     }
+
+    public function getAttributes(): array
+    {
+        return (array)$this;
+    }
 }

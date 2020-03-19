@@ -28,13 +28,13 @@ class m200308_200308_insert_sys_table_table extends Migration
         ]);
 
         $this->insert('sys_table', [
-            'table_name' => 'sys_category',
-            'title' => 'System Category'
+            'table_name' => 'sys_sql_command',
+            'title' => 'System Sql Command'
         ]);
 
         $this->insert('sys_table', [
-            'table_name' => 'sys_sql_command',
-            'title' => 'System Sql Command'
+            'table_name' => 'sys_category',
+            'title' => 'System Category'
         ]);
 
     }
@@ -50,18 +50,4 @@ class m200308_200308_insert_sys_table_table extends Migration
         return true;
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m200308_200308_insert_sys_table_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

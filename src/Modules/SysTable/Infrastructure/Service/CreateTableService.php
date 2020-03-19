@@ -16,21 +16,26 @@ class CreateTableService
     private $sysTypeRepository;
     private $sysTableRepository;
     private $sysColumnRepository;
+    private $categoryService;
 
     public function __construct(SysTypeRepositoryInterface $sysTypeRepository,
                                 SysColumnRepositoryInterface $sysColumnRepository,
-                                SysTableRepositoryInterface $sysTableRepository)
+                                SysTableRepositoryInterface $sysTableRepository,
+                                CategoryService $categoryService)
     {
         $this->sysTypeRepository = $sysTypeRepository;
         $this->sysColumnRepository = $sysColumnRepository;
         $this->sysTableRepository = $sysTableRepository;
+        $this->categoryService = $categoryService;
     }
 
-    public function getAllTables() {
+    public function getAllTables()
+    {
         return $this->sysTableRepository->findAll();
     }
 
-    public function getAllTypes(){
+    public function getAllTypes()
+    {
         return $this->sysTypeRepository->findAll();
     }
 
@@ -58,11 +63,12 @@ class CreateTableService
                 return false;
             }
         }
-         return true;
+        return true;
     }
 
-    public function createVirtualColumns($post, $tableId) {
-        $numOfCols = (count($post) - 1) /3;
+    public function createVirtualColumns($post, $tableId)
+    {
+        $numOfCols = (count($post) - 1) / 3;
 
         for ($i = 0; $i < $numOfCols; $i++) {
             $column = new SysColumn();
@@ -79,16 +85,38 @@ class CreateTableService
         $tableName = $this->sysTableRepository->findOneById($tableId)->table_name;
 
         $typesQuery = $this->sysTypeRepository->findAll();
-        $types = array_map(function ($sysType) {return $sysType->type;} , $typesQuery);
+        $types = array_map(function ($sysType) {
+            return $sysType->type;
+        }, $typesQuery);
 
         $columns = [];
         $columnsQuery = $this->sysColumnRepository->getColumnsByTableId($tableId);
         foreach ($columnsQuery as $column) {
+            if ($column->column_name == 'id') {
+                $columns["$column->column_name"] = 'serial primary key';
+                continue;
+            }
             $columns["$column->column_name"] = $types[$column->column_type_id - 1];
         }
-        $columns[] = 'PRIMARY KEY(' . $columnsQuery[0]->column_name . ")";
+        //$columns[] = 'PRIMARY KEY(' . $columnsQuery[0]->column_name . ")";
 
         Yii::$app->db->createCommand()->createTable($tableName, $columns)->execute();
+
+        foreach ($columnsQuery as $column) {
+            if ($column->reference_id != null) {
+                Yii::$app->db->createCommand()->addForeignKey(
+                    "fk-$tableName-$column->column_name",
+                    "$tableName",
+                    "$column->column_name",
+                    $this->sysTableRepository->findOneById($column->reference_id)->table_name,
+                    "id",
+                    "CASCADE",
+                    "CASCADE");
+            }
+        }
+
+        $this->categoryService->addTableToCategory($tableId, 1);
+
     }
 
 }

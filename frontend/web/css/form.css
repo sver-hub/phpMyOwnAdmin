@@ -21,3 +21,8 @@
 .form-input {
     width: 100%;
 }
+
+.empty-table {
+    display: inline-flex;
+    font-size: 3rem;
+}

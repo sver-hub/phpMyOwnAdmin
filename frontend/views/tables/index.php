@@ -2,7 +2,8 @@
 
 /* @var $this yii\web\View
  * @var $content array
- * @var $table Record
+ * @var $tableId integer
+ * @var $records Record[]
  */
 
 
@@ -19,7 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= Categories::widget(['content' => $content])?>
-    <?php if (!is_null($table)) {
-            echo Table::widget(['table' => $table]);
-    } ?>
+    <?php
+    if ($tableId != null) {
+        if (!is_null($records)) {
+            echo Table::widget(['records' => $records]);
+        } else {
+            echo "<div class='empty-table'>Table is empty</div>";
+        }
+        echo Html::a('Edit Table', "/edit-table/edit/?id=$tableId", ['class' => 'btn btn-primary']);
+        echo Html::a('Drop Table', "/tables/drop/?id=$tableId", ['class' => 'btn btn-danger']);
+    }
+    ?>
 </div>

@@ -82,6 +82,32 @@ class m200308_200348_insert_sys_column_table extends Migration
             'column_type_id' => 2,
         ]);
 
+        $this->insert('sys_column', [
+            'column_name' => 'id',
+            'table_id' => 4,
+            'column_type_id' => 1,
+        ]);
+
+        $this->insert('sys_column', [
+            'column_name' => 'command',
+            'table_id' => 4,
+            'column_type_id' => 2,
+        ]);
+
+        $this->insert('sys_column', [
+            'column_name' => 'id',
+            'table_id' => 5,
+            'column_type_id' => 1,
+        ]);
+
+        $this->insert('sys_column', [
+            'column_name' => 'category_name',
+            'table_id' => 5,
+            'column_type_id' => 2,
+        ]);
+
+
+
     }
 
     /**

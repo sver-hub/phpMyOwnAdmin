@@ -16,4 +16,9 @@ class SysCategory implements EntityInterface
     {
         return 'sys_category';
     }
+
+    public function getAttributes(): array
+    {
+        return (array)$this;
+    }
 }

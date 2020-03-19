@@ -1,0 +1,27 @@
+.edit-table {
+
+}
+
+.edit-table-header {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    width: 95%;
+}
+
+.edit-table-col {
+    font-size: 2rem;
+}
+
+.edit-table-records {
+
+}
+
+.edit-table-row {
+    display: flex;
+}
+
+.edit-table-value {
+    display: inline-flex;
+
+}

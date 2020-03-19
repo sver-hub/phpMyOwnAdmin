@@ -16,4 +16,9 @@ class SysColumn implements EntityInterface
     {
         return 'sys_column';
     }
+
+    public function getAttributes(): array
+    {
+        return (array)$this;
+    }
 }

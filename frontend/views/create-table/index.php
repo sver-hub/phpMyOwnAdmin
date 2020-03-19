@@ -32,6 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
     </label>
     <br>
     <br>
+    <label>
+        Category
+        <select name="category" class='form-input form-control'>
+            <?php foreach ($categories as $category) {
+                if ($category->id == 1) {
+                    echo "<option value='$category->id'>no category</option>";
+                    continue;
+                }
+                echo "<option value='$category->id'>$category->category_name</option>";
+            }?>
+        </select>
+    </label>
+    <br>
+    <br>
     <?= Html::submitButton('Confirm', ['class' => 'btn btn-primary'])?>
     <?= Html::endForm() ?>
 

@@ -15,4 +15,9 @@ class SysSqlCommand implements EntityInterface
     {
         return 'sys_sql_command';
     }
+
+    public function getAttributes(): array
+    {
+        return (array)$this;
+    }
 }

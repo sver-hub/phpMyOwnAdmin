@@ -20,9 +20,9 @@ abstract class AbstractRepository
 
     public function insert(EntityInterface $entity) : bool
     {
-        $values = (array) $entity;
+        $values = $entity->getAttributes();
         foreach ($values as $key => $value) {
-            if (is_null($value)) {
+            if ($value == null) {
                 $values[$key] = new Expression("DEFAULT");
             }
         }
@@ -32,13 +32,14 @@ abstract class AbstractRepository
 
     public function update(EntityInterface $entity) : bool
     {
-        $values = (array) $entity;
-        return (bool)Yii::$app->db->createCommand()->update($entity->getTableName(), $values)->execute();
+        $values = $entity->getAttributes();
+        $id = array_shift($values);
+        return (bool)Yii::$app->db->createCommand()->update($entity->getTableName(), $values, 'id = :id', [':id' => $id])->execute();
     }
 
 
     public function delete(EntityInterface $entity) : bool
     {
-        return (bool)Yii::$app->db->createCommand()->delete($entity->getTableName(), 'id = :id', [':id' => $entity->id])->execute();
+        return (bool)Yii::$app->db->createCommand()->delete($entity->getTableName(), 'id = :id', [':id' => $entity->getAttributes()['id']])->execute();
     }
 }
