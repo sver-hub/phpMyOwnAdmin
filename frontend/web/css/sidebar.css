@@ -38,6 +38,10 @@
     outline: none;
 }
 
+.sidenav-button {
+    color: #0a73bb;
+}
+
 /* On mouse-over */
 .sidenav a:hover {
     color: #8d8d8d;

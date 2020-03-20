@@ -16,20 +16,16 @@ class Categories extends Widget
     {
         $result = '<div class="sidenav">';
         foreach ($this->content as $category_name => $children) {
-            if (empty($children)) {
-                $result .= "<span>$category_name</span>";
-            } else {
-                $result .= "<button data-target='#$category_name-dropdown' data-toggle='hidden' class='dropdown-btn'
+            $result .= "<button data-target='#$category_name-dropdown' data-toggle='hidden' class='dropdown-btn'
                             onclick='$(this.dataset.target).toggleClass(this.dataset.toggle)'>$category_name
                             </button><div class='dropdown-container hidden' id='$category_name-dropdown'>";
-                foreach ($children as $child) {
-                    $result .= Html::a($child['title'], '/tables/index/?id=' . $child['id']);
-                }
-                $result .=  "</div>";
+            foreach ($children as $child) {
+                $result .= Html::a($child['title'], '/tables/index/?id=' . $child['id']);
             }
+            $result .= "</div>";
         }
 
-        $result .= "</div>";
+        $result .= Html::a('+', "/edit-table/new/?id=5") . "</div>";
         return $result;
     }
 }

@@ -32,8 +32,10 @@ class CategoryService
         foreach ($categories as $category) {
             $children = $this->sysTableRepository->findAllByCategoryId($category->id);
             $content[$category->category_name] = [];
-            foreach ($children as $child) {
-                $content[$category->category_name][] = ['id' => $child->id, 'title' => $child->title];
+            if ($children != null) {
+                foreach ($children as $child) {
+                    $content[$category->category_name][] = ['id' => $child->id, 'title' => $child->title];
+                }
             }
         }
 
@@ -53,5 +55,34 @@ class CategoryService
         $category = new SysCategory();
         $category->category_name = $categoryName;
         $this->sysCategoryRepository->save($category);
+    }
+
+    public function removeTableFromCategory($tableId, $categoryId)
+    {
+        $connection = new SysTableSysCategory();
+        $connection->sys_table_id = $tableId;
+        $connection->sys_category_id = $categoryId;
+        $this->sysTableSysCategoryRepository->remove($connection);
+    }
+
+    public function getCategories($id)
+    {
+        $connections = $this->sysTableSysCategoryRepository->findAllCategoriesByTableId($id);
+        $ids = array_map(function ($connection) {
+            return $connection->sys_category_id;
+        }, $connections);
+
+        $categories = $this->sysCategoryRepository->findAll();
+        $thisCategories = [];
+        $availableCategories = [];
+        foreach ($categories as $category) {
+            if (in_array($category->id, $ids)) {
+                $thisCategories[] = $category;
+            } else {
+                $availableCategories[] = $category;
+            }
+        }
+
+        return ['thisCategories' => $thisCategories, 'availableCategories' => $availableCategories];
     }
 }

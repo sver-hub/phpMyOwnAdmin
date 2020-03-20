@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::beginForm("/edit-table/save/?id=$tableId", 'post',
         ['autocomplete' => 'off' , 'class' => 'form-group']) ?>
 
+    <?= Html::a('manage categories', "/edit-table/manage-categories/?id=$tableId")?>
     <?php echo "<div class='edit-table-header'>";
             foreach ($columns as $column) {
             echo "<div class='edit-table-col'>$column->column_name</div>";

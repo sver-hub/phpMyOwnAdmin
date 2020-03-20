@@ -51,12 +51,12 @@ class SysTableRepository extends AbstractRepository implements SysTableRepositor
             ->where(['sys_category_id' => $id])
             ->all();
 
-        $ids = [];
-        foreach ($junction as $item) {
-            $ids[] = $item['sys_table_id'];
-        }
-
         if ($junction) {
+            $ids = [];
+            foreach ($junction as $item) {
+                $ids[] = $item['sys_table_id'];
+            }
+
             $query = (new Query())
                 ->from('sys_table')
                 ->where(['id' => $ids])

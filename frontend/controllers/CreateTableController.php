@@ -40,13 +40,12 @@ class CreateTableController extends Controller
 
         $newTableId = $this->createTableService->createVirtualTable($post['table_name'], $post['title']);
 
-
-
         if ($newTableId === false) {
             Yii::$app->session->addFlash('warning','This name is already taken');
             return $this->actionIndex(false);
         }
 
+        $this->createTableService->addToCategory($newTableId, $post['category']);
 
         return $this->render('columns', [
             'numOfCols' => $post['num_of_cols'],

@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo "<option value='$category->id'>$category->category_name</option>";
             }?>
         </select>
+        <?= Html::a('New Category', "/edit-table/new/?id=5")?>
     </label>
     <br>
     <br>

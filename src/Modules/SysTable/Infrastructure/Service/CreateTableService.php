@@ -55,6 +55,14 @@ class CreateTableService
 
     }
 
+    public function addToCategory($tableId, $category)
+    {
+        if ($category > 1) {
+            $this->categoryService->addTableToCategory($tableId, $category);
+        }
+        $this->categoryService->addTableToCategory($tableId, 1);
+    }
+
     private function isAvailable($tableName)
     {
         $tables = $this->sysTableRepository->findAll();
@@ -114,9 +122,6 @@ class CreateTableService
                     "CASCADE");
             }
         }
-
-        $this->categoryService->addTableToCategory($tableId, 1);
-
     }
 
 }
